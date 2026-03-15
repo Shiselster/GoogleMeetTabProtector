@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Google Meet Safe-Close",
+  "version": "1.0",
+  "description": "Prevents accidental tab closure or refresh during Google Meet calls.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://meet.google.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}
