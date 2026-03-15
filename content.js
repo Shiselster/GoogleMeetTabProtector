@@ -1,9 +1,9 @@
 let isProtectionActive = true;
 
-// Intercepts the leave event and stops Google Meet from hearing it.
+// Intercepts the leave event and stops Google Meet from getting it.
 function preventAccidentalClose(event) {
     const path = window.location.pathname;
-    const isMeetingUrl = path !== "/" && path !== "/landing" && !path.startsWith("/help");
+    const isMeetingUrl = path !== "/" && path !== "/landing";
 
     if (isProtectionActive && isMeetingUrl) {
         // Stop Google's own listeners from seeing this event
@@ -23,7 +23,7 @@ document.addEventListener('click', (e) => {
     const leaveButton = e.target.closest('button[aria-label="Leave call"], button[aria-label="End call"]');
     
     if (leaveButton) {
-        console.log("Safe-Close: Intentional exit detected. Disabling protection.");
+        console.log("Google Meet Safe-Close: Intentional hangup detected. Disabling protection.");
         isProtectionActive = false;
     }
 }, { capture: true });
@@ -32,12 +32,12 @@ document.addEventListener('click', (e) => {
 //  disable protection immediately so the tab can be closed.
 const observer = new MutationObserver(() => {
     // We look for common elements on the "You left" screen, like the "Rejoin" button
-    const rejoinButton = document.querySelector('[jsname="V67SHe"]'); // Current Google Meet 'Rejoin' button ID
+    const rejoinButton = document.querySelector('button[jsname="oI7Fj"]'); // Current Google Meet 'Rejoin' button ID
     const leftMessage = document.body.innerText.includes("You left the meeting");
 
     if (rejoinButton || leftMessage) {
         if (isProtectionActive) {
-            console.log("Safe-Close: Meeting ended. Disabling protection.");
+            console.log("Google Meet Safe-Close: Meeting ended.");
             isProtectionActive = false;
         }
     } else {
@@ -55,4 +55,10 @@ observer.observe(document.body, { childList: true, subtree: true });
 // Attach our listener with 'capture: true' to be the first to respond
 window.addEventListener('beforeunload', preventAccidentalClose, { capture: true });
 
-console.log("Google Meet Safe-Close: Advanced protection active.");
+const path = window.location.pathname;
+const isMeetingUrl = path !== "/" && path !== "/landing";
+if (isProtectionActive && isMeetingUrl) {
+    console.log("Google Meet Safe-Close: Protection Enabled.");
+} else {
+        console.log("Google Meet Safe-Close: Protection inactive in landing page.");
+}
