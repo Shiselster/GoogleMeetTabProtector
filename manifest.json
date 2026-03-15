@@ -1,25 +1,27 @@
 {
-  "manifest_version": 3,
-  "name": "Google Meet Safe-Close",
-  "version": "1.0",
-  "description": "Prevents accidental tab closure or refresh during Google Meet calls.",
-  "icons": {
-    "128": "icon128.png"
-  },
-  "action": {
-    "default_icon": {
-      "128": "icon128.png"
+    "manifest_version": 3,
+    "name": "Google Meet Safe-Close",
+    "version": "1.0",
+    "author": "Shiselstr",
+    "homepage_url": "https://github.com/Shiselster/Google-Meet-Safe-Close",
+    "description": "Prevents accidental tab closure or refresh during Google Meet calls.",
+    "icons": {
+        "128": "icon128.png"
     },
-    "default_title": "Google Meet Safe-Close"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "https://meet.google.com/*"
-      ],
-      "js": [
-        "content.js"
-      ]
-    }
-  ]
+    "action": {
+        "default_icon": {
+            "128": "icon128.png"
+        },
+        "default_title": "Google Meet Safe-Close"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://meet.google.com/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
 }
