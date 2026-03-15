@@ -8,7 +8,7 @@ function preventAccidentalClose(event) {
     if (isProtectionActive && isMeetingUrl) {
         // Stop Google's own listeners from seeing this event
         event.stopImmediatePropagation();
-        
+
         // Trigger the browser dialog
         event.preventDefault();
         event.returnValue = "Stay in meeting?";
@@ -21,7 +21,7 @@ document.addEventListener('click', (e) => {
     // Google Meet buttons usually have aria-labels. 
     // We look for the "Leave call" or "End call" buttons.
     const leaveButton = e.target.closest('button[aria-label="Leave call"], button[aria-label="End call"]');
-    
+
     if (leaveButton) {
         console.log("Google Meet Safe-Close: Intentional hangup detected. Disabling protection.");
         isProtectionActive = false;
@@ -42,7 +42,7 @@ const observer = new MutationObserver(() => {
         }
     } else {
         // If we are back in a meeting (e.g., after a rejoin), re-enable protection
-        const inCallUI = document.querySelector('[data-is-muted]'); 
+        const inCallUI = document.querySelector('[data-is-muted]');
         if (inCallUI && !isProtectionActive) {
             isProtectionActive = true;
         }
@@ -60,5 +60,5 @@ const isMeetingUrl = path !== "/" && path !== "/landing";
 if (isProtectionActive && isMeetingUrl) {
     console.log("Google Meet Safe-Close: Protection Enabled.");
 } else {
-        console.log("Google Meet Safe-Close: Protection inactive in landing page.");
+    console.log("Google Meet Safe-Close: Protection inactive in landing page.");
 }
