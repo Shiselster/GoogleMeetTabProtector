@@ -1,19 +1,24 @@
 function preventAccidentalClose(event) {
-    // We only want to trigger the warning if you are in a meeting URL (e.g., /abc-defg-hij).
-    // This ignores the main Google Meet home page (/).
-    if (window.location.pathname !== "/" && window.location.pathname.length > 1) {
-        
-        // Cancel the event as stated by the standard.
+    const path = window.location.pathname;
+
+    // Ignore the home page (/) and the landing page (/landing) page.
+    // Meeting IDs are usually alphanumeric strings like /abc-defg-hij
+    const isActualMeeting = path !== "/" && 
+                            path !== "/landing" && 
+                            !path.startsWith("/help");
+
+    if (isActualMeeting) {
+        // Standard modern approach
         event.preventDefault();
         
-        // Chrome requires returnValue to be set to trigger the native confirmation dialog.
-        event.returnValue = '';
+        // Legacy fallback (using a truthy string)
+        event.returnValue = "Are you sure you want to leave the meeting?";
         
-        return '';
+        return "Are you sure you want to leave the meeting?";
     }
 }
 
-// Attach the listener to the window
-window.addEventListener('beforeunload', preventAccidentalClose);
+// Use 'capture: true' to ensure our listener fires as early as possible
+window.addEventListener('beforeunload', preventAccidentalClose, { capture: true });
 
-console.log("Google Meet Safe-Close extension is active. Accidental closures will be prevented.");
+console.log("Google Meet Safe-Close: Protection active for this meeting.");
