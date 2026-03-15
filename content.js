@@ -1,24 +1,58 @@
+let isProtectionActive = true;
+
+// Intercepts the leave event and stops Google Meet from hearing it.
 function preventAccidentalClose(event) {
     const path = window.location.pathname;
+    const isMeetingUrl = path !== "/" && path !== "/landing" && !path.startsWith("/help");
 
-    // Ignore the home page (/) and the landing page (/landing) page.
-    // Meeting IDs are usually alphanumeric strings like /abc-defg-hij
-    const isActualMeeting = path !== "/" && 
-                            path !== "/landing" && 
-                            !path.startsWith("/help");
-
-    if (isActualMeeting) {
-        // Standard modern approach
+    if (isProtectionActive && isMeetingUrl) {
+        // Stop Google's own listeners from seeing this event
+        event.stopImmediatePropagation();
+        
+        // Trigger the browser dialog
         event.preventDefault();
-        
-        // Legacy fallback (using a truthy string)
-        event.returnValue = "Are you sure you want to leave the meeting?";
-        
-        return "Are you sure you want to leave the meeting?";
+        event.returnValue = "Stay in meeting?";
+        return "Stay in meeting?";
     }
 }
 
-// Use 'capture: true' to ensure our listener fires as early as possible
+//  If you click the "Leave call" button, we turn off protection.
+document.addEventListener('click', (e) => {
+    // Google Meet buttons usually have aria-labels. 
+    // We look for the "Leave call" or "End call" buttons.
+    const leaveButton = e.target.closest('button[aria-label="Leave call"], button[aria-label="End call"]');
+    
+    if (leaveButton) {
+        console.log("Safe-Close: Intentional exit detected. Disabling protection.");
+        isProtectionActive = false;
+    }
+}, { capture: true });
+
+//  Watches the DOM. If the "You left the meeting" screen appears, 
+//  disable protection immediately so the tab can be closed.
+const observer = new MutationObserver(() => {
+    // We look for common elements on the "You left" screen, like the "Rejoin" button
+    const rejoinButton = document.querySelector('[jsname="V67SHe"]'); // Current Google Meet 'Rejoin' button ID
+    const leftMessage = document.body.innerText.includes("You left the meeting");
+
+    if (rejoinButton || leftMessage) {
+        if (isProtectionActive) {
+            console.log("Safe-Close: Meeting ended. Disabling protection.");
+            isProtectionActive = false;
+        }
+    } else {
+        // If we are back in a meeting (e.g., after a rejoin), re-enable protection
+        const inCallUI = document.querySelector('[data-is-muted]'); 
+        if (inCallUI && !isProtectionActive) {
+            isProtectionActive = true;
+        }
+    }
+});
+
+// Start observing the body for changes
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Attach our listener with 'capture: true' to be the first to respond
 window.addEventListener('beforeunload', preventAccidentalClose, { capture: true });
 
-console.log("Google Meet Safe-Close: Protection active for this meeting.");
+console.log("Google Meet Safe-Close: Advanced protection active.");
