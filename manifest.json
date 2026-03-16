@@ -1,9 +1,10 @@
 {
     "manifest_version": 3,
-    "name": "Google Meet Tab Protector",
+    "name": "__MSG_extName__",
     "version": "1.0",
-    "description": "Prevents accidental tab closure or refresh during Google Meet calls.",
+    "description": "__MSG_extDesc__",
     "homepage_url": "https://github.com/Shiselster/GoogleMeetTabProtector",
+    "default_locale":"en",
     "icons": {
         "128": "icon128.png"
     },
@@ -11,7 +12,7 @@
         "default_icon": {
             "128": "icon128.png"
         },
-        "default_title": "Google Meet Tab Protector"
+        "default_title": "__MSG_extName__"
     },
     "content_scripts": [
         {

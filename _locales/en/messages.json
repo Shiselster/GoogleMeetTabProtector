@@ -1,0 +1,18 @@
+{
+  "extName": {
+    "message": "Google Meet Tab Protector",
+    "description": "The name of the extension"
+  },
+  "extDesc": {
+    "message": "Prevents accidental tab closure or refresh during Google Meet calls.",
+    "description": "The description of the extension"
+  },
+  "dialogMessage": {
+    "message": "You are in an active meeting!",
+    "description": "Warning shown when trying to leave"
+  },
+  "consoleMessage": {
+    "message": "[Google Meet Tab Protector extension]: tab protection enabled.",
+    "description": "Console message"
+  }
+}

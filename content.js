@@ -25,12 +25,13 @@ window.addEventListener('beforeunload', (event) => {
             // Trigger the native browser confirmation dialog
             event.preventDefault();
 
+            const dialogMessage = chrome.i18n.getMessage("dialogMessage");
             // returnValue is a legacy feature, and best practice is to trigger the dialog by invoking event.preventDefault() on the BeforeUnloadEvent object, while also setting returnValue to support legacy cases.
             // A generic browser-specified string is displayed in the dialog, regardless of what we put here. Setting it to just about any truthy value (or non-empty string) will cause the dialog to be triggered.
-            event.returnValue = "Stay in meeting?";
-            return "Stay in meeting?";
+            event.returnValue = dialogMessage;
+            return dialogMessage;
         }
     }
 }, { capture: true });
 
-console.log("Google Meet Tab Protector: tab protection enabled.");
+console.log(chrome.i18n.getMessage("consoleMessage"));
