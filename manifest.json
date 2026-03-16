@@ -1,9 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Google Meet Safe-Close",
+    "name": "Google Meet Tab Protector",
     "version": "1.0",
     "description": "Prevents accidental tab closure or refresh during Google Meet calls.",
-    "homepage_url": "https://github.com/Shiselster/Google-Meet-Safe-Close",
+    "homepage_url": "https://github.com/Shiselster/GoogleMeetTabProtector",
     "icons": {
         "128": "icon128.png"
     },
@@ -11,7 +11,7 @@
         "default_icon": {
             "128": "icon128.png"
         },
-        "default_title": "Google Meet Safe-Close"
+        "default_title": "Google Meet Tab Protector"
     },
     "content_scripts": [
         {

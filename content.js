@@ -33,4 +33,4 @@ window.addEventListener('beforeunload', (event) => {
     }
 }, { capture: true });
 
-console.log("Google Meet Safe-Close: tab protection enabled.");
+console.log("Google Meet Tab Protector: tab protection enabled.");

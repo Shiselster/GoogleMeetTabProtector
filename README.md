@@ -1,4 +1,4 @@
-# Google Meet Safe-Close 🛡️
+# Google Meet Tab Protector 🛡️
 
 A lightweight Chrome Extension that prevents you from accidentally ending your Google Meet calls by closing the tab or refreshing the page.
 
