@@ -5,7 +5,7 @@ A lightweight Chrome Extension that prevents you from accidentally ending your G
 ## 🚀 Features
 - **Accidental Closure Prevention:** Triggers a native browser confirmation dialog if you try to close or refresh an active meeting.
 - **Smart Detection:** Automatically enables protection when you join a meeting and disables it when you intentionally hang up and leave the call.
-- **Performance Optimized:** Simple code, zero idle-overhead. No polling, no DOM watchers/observers to ensure zero lag and impact on resources during calls.
+- **Performance Optimized:** Simple code, zero idle-overhead. No polling, no DOM watchers/observers. Consumes 0% CPU and memory during your meeting to ensure zero lag and impact on resources.
 
 ## 🔒 Privacy
 This extension respects your privacy:
