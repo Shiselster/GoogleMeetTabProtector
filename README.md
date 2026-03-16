@@ -9,10 +9,10 @@ A lightweight Chrome Extension that prevents you from accidentally ending your G
 
 ## 🔒 Privacy
 This extension respects your privacy:
-- It operates entirely locally within your browser.
-- No permissions are required.
-- It does not collect, store, or transmit any data, browsing history, or meeting information to any external servers.
-- No data is shared with third parties.
+- *Data Processing*: It operates entirely locally within your browser, on your device.
+- *Data Collection*: It does not collect, store, or transmit any information, browsing history, or meeting data to any external servers.
+- *Third Parties*: No data is shared with third parties.
+- *Permissions*: Only the `host_permission`, and only for the `meet.google.com` website, is being used - solely to detect the active meeting state and to provide the safety confirmation dialog.
 
 ## 🛠️ Installation (Manual/Developer Mode)
 1. Clone this repository or download the ZIP.
