@@ -20,7 +20,7 @@ function preventAccidentalClose(event) {
 document.addEventListener('click', (e) => {
     // Google Meet buttons usually have aria-labels. 
     // We look for the "Leave call" or "End call" buttons.
-    const leaveButton = e.target.closest('button[aria-label="Leave call"], button[aria-label="End call"]');
+    const leaveButton = e.target.closest('button[aria-label="Leave call"]');
 
     if (leaveButton) {
         console.log("Google Meet Safe-Close: Intentional hangup detected. Disabling protection.");
@@ -42,7 +42,7 @@ const observer = new MutationObserver(() => {
         }
     } else {
         // If we are back in a meeting (e.g., after a rejoin), re-enable protection
-        const inCallUI = document.querySelector('[data-is-muted]');
+        const inCallUI = document.querySelector('button[data-is-muted]');
         if (inCallUI && !isProtectionActive) {
             isProtectionActive = true;
         }
